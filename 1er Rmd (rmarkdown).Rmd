@@ -1,0 +1,29 @@
+---
+title: "Exploración sobre plantas extintas"
+author: "Luis Alberto Méndez Gasca"
+date: "20/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+```
+
+Introducción
+
+Origen de los datos
+
+Los datos de plantas extintas se obtuvieron de **UICN**, del siguente [repositorio](http://github.com/rfordatascience/tidytuesday) de GitHub.
+
+
+```{r, echo=TRUE, message= FALSE, warning= FALSE}
+plants <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/plants.csv')
+actions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/actions.csv')
+threats <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/threats.csv')
+```
+
+##Datos de Sudamérica
+
+El número de especies que hay en Sudamérica en la base de datos son de `r plants %>% dplyr::filter(continent=="South America") %>% nrow()` especies.
