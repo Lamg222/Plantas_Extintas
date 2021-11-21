@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(kableExtra)
+library(knitr)
 ```
 
 Introducción
@@ -27,3 +28,34 @@ threats <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 ##Datos de Sudamérica
 
 El número de especies que hay en Sudamérica en la base de datos son de `r plants %>% dplyr::filter(continent=="South America") %>% nrow()` especies.
+
+##Tablas
+```{r, echo=F}
+t1=msleep %>% group_by(vore) %>% 
+  summarise_at("sleep_total",.funs = list(Promedio=mean,`Desviación Estádar`=sd)) %>% 
+  dplyr::filter(!is.na(vore)) %>% 
+  arrange(Promedio)
+kable(t1)
+```
+```{r, echo=F}
+t1=msleep %>% group_by(vore) %>% 
+  summarise_at("sleep_total",.funs = list(Promedio=mean,`Desviación Estádar`=sd)) %>% 
+  dplyr::filter(!is.na(vore)) %>% 
+  arrange(Promedio)
+kable(t1, digits = 2) %>% kable_styling()
+
+kable(t1, digits = 2) %>% kable_styling(bootstrap_options = c("striped"))
+kable(t1, digits = 2) %>% kable_styling(bootstrap_options = c("striped", "hover"))
+kable(t1, digits = 2) %>% kable_styling(bootstrap_options = c("striped", "hover","condensed"))
+kable(t1, digits = 2) %>% kable_styling(bootstrap_options = c("striped", "hover","condensed"),
+                                        full_width = FALSE)
+```
+
+```{r, echo=FALSE}
+t2=msleep %>% dplyr::select(name,vore,sleep_total,brainwt)
+kable(t2, digits = 3, caption = "Tabla más grande") %>% 
+  kable_styling(bootstrap_options = c("striped","hover","condensed"),full_width = F) %>% 
+  scroll_box(width="800px",height = "200px")
+```
+
+
